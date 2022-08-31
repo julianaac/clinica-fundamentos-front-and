@@ -9,16 +9,19 @@ window.onload = function() {
             }
         })
     });
-    let xhr = new XMLHttpRequest();
+    // let xhr = new XMLHttpRequest();
     let botaoCarregar = document.querySelector("a#load");
     if (botaoCarregar) {
         botaoCarregar.addEventListener('click', () =>{
             let tabela = document.querySelector("table");
-            let url = "http://my-json-server.typicode.com/danielnsilva/json/profissionais"; /* abrindo documento xmr */
-            xhr.open("GET", url); /*Vai abrir uma requisição do tipo Get (Que serve para buscar informações no servidor) */
-            xhr.addEventListener("readystatechange", () =>{
-                if(xhr.readyState == 4 && xhr.status == 200){/* quero saber se a requisição deu certo e verifica se retornou corretamente na segunda parte*/
-                    let dados = JSON.parse(xhr.responseText); /*pega as informações de JASON ou seja pega a resposta da requisição é tranforma no formato JSON*/
+           let url = "http://my-json-server.typicode.com/danielnsilva/json/profissionais";/* abrindo documento xmr */
+        //    xhr.open("GET", url);/* Vai abrir uma requisição do tipo Get (Que serve para buscar informações no servidor) */
+            fetch(url) /* Vai abrir uma requisição do tipo Get (Que serve para buscar informações no servidor) */
+            .then(resposta => resposta.json())/*pega as informações de JASON ou seja pega a resposta da requisição é tranforma no formato JSON*/
+            .then(dados => {
+        //     xhr.addEventListener("readystatechange", () =>{
+        //         if(xhr.readyState == 4 && xhr.status == 200){/* quero saber se a requisição deu certo e verifica se retornou corretamente na segunda parte*/
+        //             let dados = JSON.parse(xhr.responseText); /*pega as informações de JASON ou seja pega a resposta da requisição é tranforma no formato JSON*/
                     for (let item in dados){ /* a cada iteração item vai receber uma informação de dados o id apenas*/
                         let linha = document.createElement("tr"); /* cria um elemento tr*/
                         let id = document.createElement("td");
@@ -51,10 +54,10 @@ window.onload = function() {
 
                     }
                 }
-            });
+            );
     
             
-            xhr.send(); /* */
+    //         xhr.send(); /* */
 
         });
     }
